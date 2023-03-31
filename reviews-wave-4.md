@@ -1,6 +1,6 @@
 # Reviews Wave 4
 
-Here's wave 4 of game reviews. There's a lot here because I threw in some extras just to try out. Specifically, after Fortnite, I tried out some other multiplayer shooters, a genre I've never played before.
+Here's wave 4 of game reviews. There's a lot here because I threw in some extras just to try out. Specifically, after Fortnite, I tried out some other multiplayer shooters, a genre I've never played before. The result was: a lot of fun, high-quality games, but not as many that stuck in my memory. Still, I'd recommend Dark Souls and Vampire Survivor to anybody. Dragon's Dogma and Tunic require a lot of familiarity with their genres, but I loved them.
 ## CS Go
 I started with CS: Go because of the recent gyro work by @hilariouscow@idlethumbs.social. After the tutorial and a couple of rounds with bots, I tried the Battle Royale mode, which seems very unpopular. At least for new or free players; I never found a match. So this was a bust.
 ## Apex Legends
