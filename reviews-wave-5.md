@@ -5,11 +5,14 @@ This wave of games trended toward games that I thought *would be* interesting mo
 ## Gears of War 3
 Gears 3 is definitely more Gears of War. Well-crafted, slight improvement over the previous two, cleverer than it seems, and a little too consistently loud for my taste.
 ## Control
+![A long room with drop ceilings and computers halfway down. One wall of the room is glass with an embedded grate. Junked cars are faintly visible through the glass.](control-1.jpg)
 Control is a fun, polished narrative with decent moment-to-moment gameplay. I liked it a lot, although the weird part is: even though the modern collectible/levelling/rando-quests feel tacked on, I liked them too. Even the Metroidvania-style world feels tacked on! Sam Lake's over-the-top, creepy-adjacent writing elevates what would otherwise be the perfect average of modern games.
+![A large open office is dimly lit from the front. An unconscious office worker floats one floor up in the open space between the mezzanine.](control-2.jpg)
 ## Metro 2033
 Metro 2033 is a weird kind of Eurojanky: it feels like a small team imitating what they love on a shoestring--here, Call of Duty or Half-Life. But the scope is tight and the polish is high. Then again, almost every level has a broken trigger, a too-fast tutorial, or unsignposted jump. Overall, I was impressed, but frustrated a lot of the time. So, yeah, Eurojank.
 ## STALKER: Call of Pripyat
 STALKER is classic Eurojank open-world RPG that wants to be Fallout and Witcher at the same time. Anecdote: Some stalkers asked for help to fight some bandits at midnight. I went early, where the bandits asked me to double-cross the stalkers. Come midnight, I couldn't see in the pitch black, so I stumbled around until a bandit found me and thanked me for helping them win. Back at the stalker hideout next morning, I was still just as welcome there.
+![A road leads by an abandoned office building with an old bus in the middle. There's some brush past the road with some evergreens. Official-looking UI is in the corners.](stalker-cop.jpg)
 ## The Looker
 If you were curious about the Witness but didn't want to spend the time or money, the Looker is a free, short parody that will give you the flavour of it. Some of the twists are on the same level as the Witness, although there are unpolished edges in places.
 ## Assassin's Creed Syndicate
