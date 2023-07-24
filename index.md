@@ -14,3 +14,6 @@
 ## Other
 
 - [HP Reverb G2 VR Headset](hp-reverb-vr.html)
+
+# Social Media 
+<a rel="me" href="https://fosstodon.org/@shivelysanders">Mastodon</a>
