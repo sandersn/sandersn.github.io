@@ -1,5 +1,11 @@
 <title>Nathan Shively-Sanders</title>
 
+### Social media: 
+<a rel="me" href="https://fosstodon.org/@shivelysanders">Mastodon</a>
+### Drawings
+
+[Drawings](drawings.html)
+
 # Reviews
 
 ## Games
@@ -14,6 +20,3 @@
 ## Other
 
 - [HP Reverb G2 VR Headset](hp-reverb-vr.html)
-
-# Social Media 
-<a rel="me" href="https://fosstodon.org/@shivelysanders">Mastodon</a>
