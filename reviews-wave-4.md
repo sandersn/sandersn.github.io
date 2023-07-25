@@ -9,17 +9,17 @@ Next I tried Apex Legends. Seems like a good game but there's no solo mode. I fe
 Next I tried Hunt: Showdown. You can play it without teammates -- no chance of winning, of course, which is fine by me. Somebody has to fill out the bottom half of any match. Heavy emphasis on stealth, but having never played a multiplayer stealth game, I was just lost. I blundered around and it was interesting but not amazing fun.
 ## Dragon's Dogma
 Dragon's Dogma is an action RPG, clearly imitating Dark Souls' western-inspired design. But what it *is*, is a cluttered, janky prototype for Breath of the Wild. There's so much stuffed in there, much of it half-finished, but with guaranteed unpredictable adventure every time you leave the city walls. If you like Breath of the Wild and jank, you must play Dragon's Dogma.
-![A wizard, a fighter and a rogue stand on a ledge overlooking a fortified city and a wide plain surrounding it.](dragons-dogma.jpg)
+![A wizard, a fighter and a rogue stand on a ledge overlooking a fortified city and a wide plain surrounding it.](images/dragons-dogma.jpg)
 ## Talos Principle
 The Talos Principle is a spare puzzle game with lush graphics. I didn't like it, maybe because I played mostly in VR. The good VR adaptations I've played focus on movement, even if it's not the *most* impressive aspect of VR. Talos Principle's gestures, even well-implemented, slow down the game too much. Worse, my initial headset only ran it on low settings+resolution, so the graphics weren't even that impressive.
-![Partly ruined mediaeval walls separate a courtyard in half. Part of the wall has been placed by a fence, through which a blue force gate can be seen.](talos-principle.jpg)
+![Partly ruined mediaeval walls separate a courtyard in half. Part of the wall has been placed by a fence, through which a blue force gate can be seen.](images/talos-principle.jpg)
 ## Dark Souls 2
 Dark Souls 2 gave me the unsettled, tense feeling of playing Dark Souls again for the first time. It destroys the familiarity of the game through mechanics. Problem is, you can't improve on perfection and Dark Souls isn't perfect but it's really really good. Dark Souls 2 improves one or two things, but the other changes are neutral or worse.
-![A warrior faces into the setting sun on a fenced cliff side. In the distance a tower on a promontory is silhouetted. Glistening waves roll in from the sea.](dark-souls-2.jpg)
+![A warrior faces into the setting sun on a fenced cliff side. In the distance a tower on a promontory is silhouetted. Glistening waves roll in from the sea.](images/dark-souls-2.jpg)
 ## Dark Souls again
 So I ended up playing the good part of Dark Souls again. Well, the whole game is good, but the first half is sublime. After Bloodborne, I was able to play a whole different way, with no shield and a really big sword. Just wonderful to play and replay. Soulslikes are reliably the most fun I have in videogames. (Though now I've forgotten how to use a shield.)
 ## Tunic
-Tunic give me the feeling of playing *Zelda* for the first time. Here, though, nearly all the changes are improvements. The combat is a decent soulslike mix and the metroidvania is tighter than the original Zelda, but less handholdy than the later ones. It's the manual that's genius, though. Looking at it and guessing things took half my playtime.
+Tunic gave me the feeling of playing *Zelda* for the first time. Here, though, nearly all the changes are improvements. The combat is a decent soulslike mix and the metroidvania is tighter than the original Zelda, but less handholdy than the later ones. It's the manual that's genius, though. Looking at it and guessing things took half my playtime.
 ## No Man's Sky
 This game made me tired and also sad that I didn't like it more. There is Too Much Crafting in it. I kind of wish I could have played the original version where you do nothing but fly from weird planet to identical weird planet. Maybe you get there eventually but I got stuck being tutorialised halfway through a giant tech tree.
 ## Vampire Survivor
