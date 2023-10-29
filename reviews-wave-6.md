@@ -1,8 +1,8 @@
 # Reviews Wave 6
 
-This wave was a real grab bag. For fans of their respective genres, Might and Magic 6 and Vagante are relatively obscure gems. And I think everybody should play Hollow Knight and Half-Life: Alyx. (If you don't have a headset, play Half-Life 2 again, that'll do just fine.) Star Wars Squadrons and Total War Troy are probably great for fans of their genre, but I am not one.
+This wave was a real grab bag. For fans of their respective genres, Might and Magic 6 and Vagante are hidden-ish gems. And I think everybody should play Hollow Knight and Half-Life: Alyx. (If you don't have a headset, play Half-Life 2 again, that'll do just fine.) Star Wars Squadrons and Total War Troy are probably great for fans of their genre, but I am not one.
 
-## Ascent
+## The Ascent
 The Ascent is a cyberpunk Diabo-like ("ARPG"). But it scrapes along duller by far than I expected from its glossy exterior. Every aspect of the game was missing that last 20% to make it good -- by-the-second gameplay, world design, quest design, upgrade loop. All of it. Disappointing.
 
 ## Star Wars Squadrons
