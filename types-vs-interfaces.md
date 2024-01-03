@@ -3,7 +3,7 @@ In a discussion on language design on the Typescript discord about types vs inte
 1. interfaces existed in the language from day 1 (2011), but type aliases weren't added until unions were in 2015 -- exactly the point when non-object types became expressible.
 2. Typescript was extremely C#-inspired in its early days. Anders was working on C# previously, Luke was working on F# previously.
 3. interface merging is a weird feature that disappears once ES modules happen. It was needed (and still is, a bit) to work in a global environment like the browser. It's not just interfaces, it's most pre-ES2015 features.
-4. Type aliases need to exist so you don't have to write A | B | C every time. Over time this expanded to intersections and mapped types.
+4. Type aliases need to exist so you don't have to write `A | B | C` every time. Over time this expanded to intersections and mapped types.
 5. It was confusing that type aliases were so different from interfaces, especially the way they disappeared in quick info, etc. That, and wanting to write recursive conditional types, led to the convergence with interfaces over time.
 
 The bottom line is that typescript has two nearly identical features for historical reasons, and there's not a principled way to separate them or provide clear usage guidelines.
