@@ -4,6 +4,8 @@ Social media: <a rel="me" href="https://fosstodon.org/@shivelysanders">Mastodon<
 
 [Drawings](drawings.html)
 
+[Quick Opinions](opinions.html)
+
 # Reviews
 
 ## Games
