@@ -1,119 +1,53 @@
 In a discussion about compiler internals on the Typescript discord, I tried to give reasons why you might want to have a separate binder and checker.
 
-In compilers for old languages, the binder and checker could be one program.
+In compilers for old languages, the binder and checker could be one unit. Practically the whole thing could be one unit for a simple enough language&mdash;parser, binder, checker, emitter. This gives you a fast, streaming compiler, almost like the JS emit from today's bundlers. The downside is that everything has to be checked in the order that it's written. For example:
 
-Thanks for this repo: https://github.com/sandersn/mini-typescript
-It's minimalist, which I think is a good thing, because it really helps to understand the big picture.
-I guess the binding is a separate phase from type-checking to comply with hoisting in JS? Are there other reasons?
-Does the term Symbol refer only to the notion of table of symbols (variables, functions, custom types, etc.) in the sense of most compilers/interpreters implementation, or are there other reasons?
-GitHub
-GitHub - sandersn/mini-typescript: A miniature model of the Typescr...
-A miniature model of the Typescript compiler, intended to teach the structure of the real Typescript compiler - GitHub - sandersn/mini-typescript: A miniature model of the Typescript compiler, inte...
-
-
-1
-
-Jake Bailey — Today at 12:49
-Binding is how you can track that one identifier refers to the same variable as another identifier; it's not a step specific to JS in general, though the name may be different elsewhere
-
-jean_michelet — Today at 12:58
-Yes, I get it, but I is necessary to know that this function exists before execute it:
-sayHello()
-
+```js
 function sayHello() {
-  console.log('hello')
+  console.log('hello', world())
 }
-
-
-In PHP, this code fail ^^ (edited)
-
-@jean_michelet
-Yes, I get it, but I is necessary to know that this function exists before execute it: sayHello()  function sayHello() {   console.log('hello') } In PHP, this code fail ^^ (edited)
-
-Nathan Shively-Sanders — Today at 12:59
-you're getting at the basic reason, yes
-[12:59]
-(also true for type and interface)
-[13:00]
-I think the main reason is that the binder is simple, fast tree walk, but the checker is a lazy and self-recursive -- you can start it with a tree walk, or start it with a call into any check function, but you'll quickly end up following type dependencies instead
-
-Jake Bailey — Today at 13:00
-Yeah. Many (most?) other languages are compiled, and so don't have this sort of order dependence, e.g. in C I can write:
-int get_number() { return 1234; }
-void main() {
-    printf("the number is %d\n", get_number())
-}
- (edited)
-[13:00]
-(so, this kind of analysis is not uncommon)
-
-Nathan Shively-Sanders — Today at 13:01
-The previous compiler I worked on was for a SQL dialect, and it indeed put most type checking the binder, but after a certain point, we had to add a check phase for complex checks that depended on whole-program information.
-[13:01]
-So I think it's something that happens naturally as languages become more complex.
-
-1
-[13:02]
-@jean_michelet in PHP can you say
-function sayHello() {
-  console.log('hello', sayWorld())
-}
-function sayWorld() {
+function world() {
   return 'world'
 }
+```
 
-1
-[13:03]
-You can in Python, even though technically it's evaluated top-to-bottom -- it's just that function bodies are not evaluated immediately.
+Is not legal in a language that (1) needs to be compiled top-to-bottom (2) needs enough information to check and emit all code. Some languages delay compilation, or interpretation, until the function actually runs, meaning that the above program is legal in Python or PHP, but this one is not:
 
-jean_michelet — Today at 13:03
-Yes you can
+```js
+world()
+function world() {
+  return 'world'
+}
+```
 
-Nathan Shively-Sanders — Today at 13:04
-If you want to check that hello/world program, you'll need a separate bind and check phase, because checking is sort of partial interpretation.
+That's because the program is executed top-to-bottom, but function bodies aren't checked until they're called. (Thanks to discord user @jean_michelet for this example translated from PHP.)
 
-jean_michelet
-Yes you can
+One way around the top-to-bottom problem is forward declaration:
 
-jean_michelet — Today at 13:05
-Hum, sorry, I am not sure
-[13:06]
-Yes, I confirm
+```ts
+declare function world(): void;
+function sayHello() {
+  console.log('hello', world())
+}
+function world() {
+  return 'world'
+}
+```
 
-Nathan Shively-Sanders — Today at 13:07
-In that case you will want a separate binder and checker.
-[13:08]
-The SQL dialect I worked on technically had separate functions, but they were compiled into one giant program via inlining, so it did actually make sense to disallow forward references, and to have the binder and checker combined.
+You can even put your forward declarations in a re-usable file and copy/paste it everywhere, like the C pre-processor does.
 
-1
-[13:08]
-(It was https://devblogs.microsoft.com/visualstudio/introducing-u-sql-a-language-that-makes-big-data-processing-easy/ -- I can't believe this page is still up)
-[13:13]
-Well, hack would have to check the program up-front I believe
-[13:13]
-(though I haven't used PHP or Hack before)
+The modern solution, however, is to have multiple passes: specifically, a binder to gather declaration information and a checker to check the code. This solves the problem. And, over time, the binder and checker can start to look different. In Typescript, the binder is a fast, top-down walk over the tree that adds pointers to declaration nodes into tables in container nodes. The checker is a lazy, self-recursive walk over the type graph, which you can enter from basically any node you want to type check. When code changes in the editor, only the current file is re-bound. But the entire checker is thrown away. That's because declarations have fairly simple dependencies, but types have complex, multi-file dependencies.
 
-jean_michelet — Today at 13:14
-I know that the language has come a long way, even the original opensource engine, thanks in particular to Nikita Popov, an LLVM contributor. (edited)
-[13:16]
-But I'm migrating to Node because I'm fed up with maintaining knowledge of two ecosystems for the same web problem.
-Time that I could invest in an other language like C++ Rust.
-[13:16]
-Thanks for your time and feedbacks
+Note, from the above discussion:
 
-jean_michelet
-Yes, I get it, but I is necessary to know that this function exists before execute it: sayHello()  function sayHello() {   console.log('hello') } In PHP, this code fail ^^ (edited)
+- A symbol is the "pointer to declaration".
+- A symbol table is the "table of pointers" that's added to a container node.
 
-jean_michelet — Today at 13:21
-Ooops, sorry.
+So the basic operation of the binder is attaching a structure like this to a container:
 
-I think it's late and I am a bit tired, this code is completely valid in PHP...
-
-@Jake Bailey
-Yeah. Many (most?) other languages are compiled, and so don't have this sort of order dependence, e.g. in C I can write: int get_number() { return 1234; } void main() {     printf("the number is %d\n", get_number()) } (edited)
-
-jean_michelet — Today at 13:39
-Yes, even PHP is compiled in bytecodes and has JIT.
-Sorry, I lost my way tonight ^
-
-Message #compiler-internals-and-api
+```json
+{
+  world: { line: 3, pos: 0, kind: "function" },
+  sayHello: { line: 0, pos: 0, kind: "function" },
+}
+```
