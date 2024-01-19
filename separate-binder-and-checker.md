@@ -46,7 +46,7 @@ Note, from the above discussion:
 So the basic operation of the binder is attaching a structure like this to a container:
 
 ```js
-{
+sourceFile.exports = {
   world: { line: 3, pos: 0, kind: "function" },
   sayHello: { line: 0, pos: 0, kind: "function" },
 }
