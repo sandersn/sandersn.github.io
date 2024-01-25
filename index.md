@@ -4,7 +4,16 @@ Social media: <a rel="me" href="https://fosstodon.org/@shivelysanders">Mastodon<
 
 [Drawings](drawings.html)
 
-[Quick Opinions](opinions.html)
+## Opinions
+
+Some quick opinions, mostly transcribed from discord or mastodon. Not fact-checked or anything!
+
+- [Types vs Interfaces](types-vs-interfaces.html)
+- [Separate Binder and Checker](separate-binder-and-checker.html)
+
+## How To
+
+- [How to Minify a Typescript Repro](minify-typescript-repro.html)
 
 # Reviews
 
