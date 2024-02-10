@@ -1,8 +1,7 @@
 # Reviews Wave 7
 Wave 7 had far too many open world games. It took up most of 2023. What can I say? That I like open world games? But it held things up quite a bit, and wave 8 isn't going any better.
 
-I would recommend Elden Ring to anybody. There's a lot more commitment than most games, even, but if you put that in, you'll see why people have loved Dark Souls all along.
-It's super long, but even more than Dark Souls proper, you don't need to play the whole thing.
+I would recommend Elden Ring to anybody. It's super long, but even more than Dark Souls proper, you don't need to play the whole thing. Just enough to find out why people love it.
 
 You should try Subnautica for a few hours, even if it's not in VR. And Inscryption and DOOM are worth playing if you like their respective genres.
 
@@ -56,7 +55,7 @@ Subnautica nails 2 or 3 feelings: floating in a shallow sea--almost flying. Gazi
 I think I don't like survival mechanics in a game with long-term goals, even purely mechanical ones. They get in the way and slow things down. That's true at least in Subnautica and No Man's Sky and Terraria and Starbound. Unless I treat survival as the entire game, I get impatient to see the rest of it.
 
 ![A swimmer holds a flashlight in almost total darkness. A few fuzzy fish are visible in the distance, and maybe a plume of smoke. The depth metre reads "541m".](images/subnautica.jpg)
-The most recent update finally fixes the VR bugs. Just be aware that smaller vehicles may be unplayable if you have any sim sickness at all.
+The most recent update finally fixes the big VR bugs. Just be aware that smaller vehicles may be unplayable if you have any sim sickness at all.
 
 ## Inscryption
 I can't decide if I like Inscryption better than The Hex. Inscryption is more coherent and has much more polished mechanics. But the first section took me *so* long to beat, probably I never really got good at any other roguelike card games.
