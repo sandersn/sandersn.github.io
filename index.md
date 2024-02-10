@@ -10,7 +10,6 @@ Some quick opinions, mostly transcribed from discord or mastodon. Not fact-check
 
 - [Types vs Interfaces](types-vs-interfaces.html)
 - [Separate Binder and Checker](separate-binder-and-checker.html)
-- [GitClear's Whitepaper on Copilot Code Quality](gitclear-copilot-code-quality.html)
 
 ## How To
 
@@ -27,7 +26,9 @@ Some quick opinions, mostly transcribed from discord or mastodon. Not fact-check
 - [Wave 5](reviews-wave-5.html)
 - [Wave 6](reviews-wave-6.html)
 - [Wave Christmas 2022](reviews-wave-christmas-2022.html)
+- [Wave 7](reviews-wave-7.html)
 
 ## Other
 
 - [HP Reverb G2 VR Headset](reviews-hp-reverb-vr.html)
+- [GitClear's Whitepaper on Copilot Code Quality](gitclear-copilot-code-quality.html)
