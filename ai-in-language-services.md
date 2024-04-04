@@ -2,27 +2,26 @@
 
 This is a summary of my AI work on the Typescript team.
 I've been looking for useful applications of AI to make it easier to write Typescript code.
-Along the way I've tried a lot of things and come up with a language-centric picture of the value of current-generation AIs.
+Along the way I've tried a lot of things and come up with an opinion of how best to use current-generation AIs for language services.
 
 ## Value
 
-One of my basic assumptions, backed up by some experience, is that a chat interface is not the best interface for coding.
-It works well enough for high-level, discrete tasks, but is too much work for simple things -- the things that an LLM is most likely to get right.
-Today, all programmers are new to working with AI.
-They're going to do best with tools they're familiar with at first: in this case I'm thinking of completions and refactors, which the IDE suggests instead of being queried for.
+One of my basic assumptions, informed by experience with copilot and chatgpt, is that a chat interface is not the best interface for coding.
+It's a decent starting point for sizable, discrete tasks, but most of the time people don't break down tasks discretely in their head.
+They just want help with the next step, and the next step is usually "writing code".
+Fortunately, our tools are designed to make writing code easy.
+It's a matter of re-packaging LLMs from their chat interface into a form that our editors can use, and that our users are familiar with: completions, refactors and code fixes, for example.
 
-Even though they're packaged in a chat interface currently, LLMs are good at a number of tasks.
-Specifically, they're good at "creative" tasks (generative, actually), from simple to complex. But they're just generating code with no way to check it, and no reference to an explicit semantics.
-Fortunately, the tools we already have complement this perfectly: they're not creative, but they encode and check language semantics.
+Packaged this way, LLMs complement Devdiv's existing tools quite well.
+Specifically, they're good at "creative" tasks (well, generative, at least), where our tools are good at tasks with a single right answer.
+(This is true all the way down to single-line fixes, and the AI has a good chance of guessing right in tasks this small.)
+But they're just generating code with no explicit reference to semantics, and no way to check its correctness.
+Good news! Devdiv is full of checkers: language services, linters, test harnesses, etc.
+We can automatically check LLM output in number of ways as soon as it's generated.
 
-TODO: I don't even consider augmenting our existing tools' *internals* by consulting an LLM. The modes of reasoning are too different and LLMs are the complex thing -- they'd have to bridge to the logical reasoning of our tools.
-
-We have an immediate opportunity to augment our existing tools with LLMs, re-using their interface.
-LLMs can provide the appearance of creativity that our tools are missing.
-(Or they can choose between possible solutions with far more context than our existing tools can.)
-And, especially for simple tasks, their output is easy to check with our existing tools.
-
-That's why the features and history I describe below focus on augmenting existing tools and ways of working.
+So my approach has been to augment our existing tools with LLMs, re-using the existing interface.
+This gives our tools the appearance of creativity that they've been missing.
+Then all the usual checks can be run on the output of the LLM.
 
 ## Shipped Features
 
@@ -32,6 +31,7 @@ When Typescript runs a refactor, it can generate code that would benefit from AI
 ### Implement interface
 
 For many interfaces, implementation is boilerplate that's easy for the AI to generate.
+For this fix, the AI works on the output of the typescript language service.
 
 | Unimplemented interface | |
 |----|----|
@@ -40,6 +40,7 @@ For many interfaces, implementation is boilerplate that's easy for the AI to gen
 | ![Before AI](images/ai-quickfix-implements-4.png) | ![After AI](images/ai-quickfix-implements-3.png) |
 
 
+<!--
 ### Suggest meaningful names
 
 This is an easy task as long as the names are accessible in the context window:
@@ -50,14 +51,13 @@ This is an easy task as long as the names are accessible in the context window:
 | Typescript output | Copilot output |
 | ![Before AI](images/ai-add-names-3.png) | ![After AI](images/ai-add-names-2.png) |
 
+-->
 
 ### Infer types in untyped Typescript
 
-Couple of things to note here:
-
-1. This codefix does not invoke the typescript language service.
-2. On any of these AI followups, you can request changes, just like a chat interaction.
-3. This works in Javascript too; the LLM produces JSDoc types.
+This fix does not invoke the Typescript language service.
+Like the language-provided fix, the LLM can fix Javascript too; it generates types in JSDoc instead of Typescript annotations.
+On any of these AI followups, you can request changes, since the interface is an inline chat.
 
 | Implicit `any` on parameters | |
 |----|----|
@@ -69,15 +69,16 @@ Couple of things to note here:
 
 ### Augment "Fix with Copilot" with better errors
 
-eslint rule no-dupe-if. The error misleads the AI into thinking that deletion is the best option.
-In reality, it's more likely that a duplicate is a copy/paste that was mistakenly not updated.
+The eslint rule `no-dupe-if` has a misleading error that prompts the AI to delete code.
+It acts as if the only reason for duplicate `if` conditions is that the entire code was copied twice.
+In reality, it's more likely that a duplicate is a an intentional duplication that was mistakenly not updated.
 
 | Duplicate `if` predicates |
 |----|
 | ![Invoking AI](images/ai-no-dupe-if-1.png) | 
 | AI output when only given error | 
 | ![Before AI](images/ai-no-dupe-if-3.png) |
-| AI output when given additional prompt |
+| AI output when prompted to fix instead of delete |
 | ![After AI](images/ai-no-dupe-if-2.png) |
 
 ### Augment "Fix with Copilot" with context
@@ -94,10 +95,12 @@ In the example below, the AI is then able to correctly swap out-of-order argumen
 | AI output when given context |
 | ![After AI](images/ai-bad-call-2.png) |
 
+<!--
 ## Distractions, Duplications and Paths Not Taken
 
 The road to the shipped features, and my philosophy, had a lot of detours and wrong turns.
-Let me tell you about them.
+Here are a couple.
+
 It starts with type inference in untyped Typescript code.
 I wrote the deterministic inference for the typescript language service some years ago, never mind how long precisely.
 The type inference codefix is nice but limited.
@@ -131,11 +134,13 @@ At this point I caught the attention of the vscode-copilot team, and they shared
 This showed that the most used "Fix with Copilot" error was "Argument type does not match parameter type in call" -- and the rest of the top 10 were mostly variations on "This type can't be assigned to that type".
 This is a considerably harder problem, one that an LLM isn't necessarily able to help with.
 But I suspected that some context could help, so I added the source of the called function to the prompt, which improves results even when it doesn't prompt the AI to correct fix.
+-->
 
 ## Future Work
 
 Currently I'm adding more kinds of context to the LLM's prompt, trying to make it better at fixing bad-type-assignment errors of all kinds.
-The current step is to add other calls to the function whose call is bad.
-There are other kinds of errors that will benefit from other kinds of context, so I'll look there afterwards.
+The future is to augment the prompt with correct context so that Copilot can fix any error that requires non-local information&mdash;even if the fix is not local.
+
 It's really simple to add improved prompts, so I want to help people who own other language services improve the performance of "Fix with Copilot" for their language too.
+
 And I have a long list of experiments to try.
