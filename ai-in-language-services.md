@@ -73,6 +73,7 @@ The eslint rule `no-dupe-if` has a misleading error that prompts the AI to delet
 It acts as if the only reason for duplicate `if` conditions is that the entire code was copied twice.
 In reality, it's more likely that a duplicate is a an intentional duplication that was mistakenly not updated.
 
+
 | Duplicate `if` predicates |
 |----|
 | ![Invoking AI](images/ai-no-dupe-if-1.png) | 
@@ -94,6 +95,8 @@ In the example below, the AI is then able to correctly swap out-of-order argumen
 | ![Before AI](images/ai-bad-call-3.png) |
 | AI output when given context |
 | ![After AI](images/ai-bad-call-2.png) |
+
+Both of these augmentations are powered by a JSON object literal that supports any language that VSCode does &mdash; it's as simple as adding a new entry for a language and an object literal with entries for error codes.
 
 <!--
 ## Distractions, Duplications and Paths Not Taken
