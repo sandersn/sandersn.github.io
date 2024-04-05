@@ -69,7 +69,7 @@ On any of these AI followups, you can request changes, since the interface is an
 
 ### Augment "Fix with Copilot" with better errors
 
-The eslint rule `no-dupe-if` has a misleading error that prompts the AI to delete code.
+The ESLint rule `no-dupe-if` has a misleading error that prompts the AI to delete code.
 It acts as if the only reason for duplicate `if` conditions is that the entire code was copied twice.
 In reality, it's more likely that a duplicate is a an intentional duplication that was mistakenly not updated.
 
@@ -98,46 +98,26 @@ In the example below, the AI is then able to correctly swap out-of-order argumen
 
 Both of these augmentations are powered by a JSON object literal that supports any language that VSCode does &mdash; it's as simple as adding a new entry for a language and an object literal with entries for error codes.
 
-<!--
-## Distractions, Duplications and Paths Not Taken
+## Detours and Paths Not Taken
 
-The road to the shipped features, and my philosophy, had a lot of detours and wrong turns.
-Here are a couple.
+The road to those features that actually shipped had a lot of detours and wrong turns, and I got directions from a lot of people along the way. 
+Here are three:
 
-It starts with type inference in untyped Typescript code.
-I wrote the deterministic inference for the typescript language service some years ago, never mind how long precisely.
-The type inference codefix is nice but limited.
-In particular, it can only infer primitives and object types.
-It can't infer a new interface or class type based on usage, even consistent usage throughout the program.
+After adding AI followups to Typescript's refactors, I tried injecting the same kind of context into type inference that I later added to Typescript errors.
+But it didn't help that much, so I abandoned it, justifying it by guessing that people didn't use Typescript's deterministic type inference much anyway.
+When Eric Cornelson started investigating whole-file type inference with Copilot, we found that, actually, Typescript's type inference is the fourth most-used codefix.
+I should have checked telemetry instead of assuming that I knew what it would say.
 
-My first experiment with copilot's inline chat showed me that LLMs could do this task wonderfully.
-I went looking for how to prototype this and ended up in vscode's typescript extension.
-There, I saw Johannes Rieken's prototype which invoked Copilot inline chat after a Typescript refactor.
+Next, when I first wrote prompts to fix eslint errors with AI, I put the code in the vscode-eslint extension.
+The experiment worked, but thanks to prompting from Maria Solano (our resident eslint expert), I moved it to the vscode-copilot extension.
+It made a lot more sense in the vscode-copilot extension: it already had infrastructure to get tree information, for example.
+The main benefit, though, was that it made language independence an obvious feature.
+The data structure that holds the prompts doesn't need to be copied around between a bunch of different language's extensions this way.
 
-I quickly expanded the prototype to cover the rest of Typescript's refactors and code fixes.
-These shipped in VSCode Insiders but were behind a flag for a long time so few people used them.
-The most useful to me were those that suggested meaningful names after extracting a local or function, although that's now obsoleted by AI-added suggestions in all renames, which came to VS first and VS Code later.
-
-In the meantime, I experimented with improving type inference by adding context to the prompt.
-I abandoned this because my initial results weren't great and I thought people didn't use it much anyway.
-This turned out to be incorrect, as we discovered later when Eric Cornelson began experimenting with whole-file JS type inference.
-Typescript's deterministic type inference is actually 4th most-used code fix after auto-imports and spelling correction.
-
-Another reason I switched is that I started thinking about other code fixes -- there are quite a lot of errors that are simple, but code fixes are so difficult to write.
-The problem is particularly widespread in eslint, because eslint rules often have simple semantics and contributors without enough time or expertise to write a code fix.
-Again, the AI turned out to be very good at this.
-
-So good, in fact, that vscode's copilot already has a "Fix with Copilot" feature that puts the error in the prompt and asks the AI to fix it.
-However, some errors are misleading or unhelpful, since error span plus error text really isn't much context.
-I added the prompts I'd developed to Fix with Copilot. 
-But plenty of fixes I tested still didn't improve.
-Replacing misleaing errors helped.
-
-At this point I caught the attention of the vscode-copilot team, and they shared some telemetry with me.
-This showed that the most used "Fix with Copilot" error was "Argument type does not match parameter type in call" -- and the rest of the top 10 were mostly variations on "This type can't be assigned to that type".
-This is a considerably harder problem, one that an LLM isn't necessarily able to help with.
-But I suspected that some context could help, so I added the source of the called function to the prompt, which improves results even when it doesn't prompt the AI to correct fix.
--->
+Arguably, even starting with ESLint was a detour: although most lint rules are local, making them easy to fix, not many people attempt to fix them with Copilot.
+This contrasts with Typescript type errors, which are usually non-local but which people try fix with AI a lot.
+However, I didn't know this until Alexandru Dima on the vscode-copilot team showed me telemetry they've collected.
+Still, I think that starting with easy errors gave me confidence that the approach was good.
 
 ## Future Work
 
@@ -146,4 +126,5 @@ The future is to augment the prompt with correct context so that Copilot can fix
 
 It's really simple to add improved prompts, so I want to help people who own other language services improve the performance of "Fix with Copilot" for their language too.
 
-And I have a long list of experiments to try.
+I'd like to go back and improve type inference with additional context now that I have an idea how to do it.
+And I have a list of other experiments to try.
