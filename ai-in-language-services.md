@@ -84,7 +84,7 @@ In reality, it's more likely that a duplicate is an intentional copy/paste that 
 
 ### Augment *Fix with Copilot* with context
 
-*Fix with Copilot* does normally includes only context immediately around the error to be fixed.
+*Fix with Copilot* normally includes only context immediately around the error to be fixed.
 I added the source of the currently-called function, even when it's imported from another file.
 In the example below, the AI is then able to correctly swap out-of-order arguments.
 
