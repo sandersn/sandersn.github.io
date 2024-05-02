@@ -12,26 +12,28 @@ This works well for many errors, because the error implies a fix, and the fix is
 ## Targeted Fixes For Specific Errors
 Fix With Copilot fails when the context or the error are misleading. Most errors in Typescript and ESLint, which I work with day-to-day, actually try to avoid prescribing a fix in cases where it's not obvious. That's the opposite of what Copilot needs -- if the error isn't helpful, then all it has to use is the context of surrounding code. For example, ESLint has a great rule that detects duplicate if/else predicates:
 
-	no-dupe-if example here, show error and bad effect
+![Invoking AI](images/ai-no-dupe-if-1.png)
 
 The error message suggests that the duplicate is extraneous. Which it is, from a strictly control-flow perspective. But if we stop and look at *intent*, in my experience a duplicated `if/else` or `switch case` is the result of copy/paste/modifying cases until you get enough--and then forgetting to change the last one. That's why this ESLint rule is so great, because it catches attentional mistakes. Still, the fix is to make the duplicate case *different* from the others, not to delete.
 
 So I ask Copilot to do that, specifically for this error. I add "Fix the duplicate condition to be different from the first." to the prompt, which is enough for it to do the right thing:
 	
-	then the good effect afterward
+![After AI](images/ai-no-dupe-if-2.png)
 
 Sometimes the error is fine, at least not actively misleading, but it just doesn't have enough context:
 	
-	bad-call-2 example here
+![Invoking AI](images/ai-bad-call-1.png)
+
 In this case there's *no way* (except blind trial and error) for you **or** Copilot to know how to fix this without looking at `connect`:
 
 	connect source here
 Once you do, the problem is obvious. The last two parameters are swapped.
--Add source (talk breifly about implementation)
+
+-Add source (talk briefly about implementation)
 -Add other calls (talk briefly about implementation)
 -That's enough for anybody, even an AI that's not paying attention, to fix the problem:
 
-	good fix for bad-call-2
+![After AI](images/ai-bad-call-2.png)
 
 
 ## Really, how does Fix With Copilot work?
