@@ -36,18 +36,45 @@ Once you do, the problem is obvious. The last two parameters are swapped.
 ![After AI](images/ai-bad-call-2.png)
 
 
-## Really, how does Fix With Copilot work?
-1. First, it subscribes to all errors (that are logged via a language service?). It registers a fix for Every. Single. Error. Gutsy!
-2. Then, when a fix is invoked it builds a prompt using JSX with priorities.
-	1. JSX is used as a text building system, nothing more. You still have components with props and state though. It's clever and stupid and perfect and over-engineered. I can't decide.
-	2. Anyway it has priorities for dropping parts of the prompt when it gets too long.
-	3. One component collects the code surrounding the error span.
-	5. TODO: Talk about expanding the error span into the "context span".
-	4. Another formats the error nicely -- and a subcomponent tries to format any related information the error contains. The features I talk about above live in another subcomponent.
-	6. TODO: Talk about my subcomponents a little more. Objecty, applies to all languages, etc.
-	7. Finally, before everything, the prompt does some one-shot training to explain that it wants a code sample delimited by an easy-to-parse character sequence, plus an explanation.
-3. Then off to Copilot it goes. Once an answer comes back, we parse the reply into explanation and code.
-4. The explanation goes to the inline chat window. This is built from standard VSCode UI elements, but the chat itself reuses the same code that the Copilot extension's side panel chat.
+## But really, how does Fix With Copilot work?
+
+The first thing *Fix With Copilot* does is register as a fix provider for every kind of file. Every one. Then, for each document you have open, it requests errors and adds *Fix With Copilot* to the list of available fixes.
+<!-- see inlineChatCommand.ts:registerInlineChatCommands
+and inlineChatCodeActions.ts:QuickFixesProvider -->
+
+<!-- TODO: cut these two paragraphs -->
+Aside: technically, it starts inline chat with the starting user prompt `/fix ERROR TEXT HERE`, and the inline chat has the ability to recognise slash commands and map `/fix` to the Fix intent, which is the same between inline chat and panel chat. I'm not sure the additional detail is worth talking about.
+
+When you click on *Fix With Copilot*, it invokes inline chat, which uses InlineFixPromptCrafter to build a prompt with, InlineFix4Prompt or InlineFix3Prompt. (3 is what you get normally but 4 is in testing.)
+InlineFixPromptCrafter delegates the actual prompt crafting to PromptRenderer, which is two levels of indirection more than need to show up in this article.
+<!-- InlineFixPromptCrafter, PromptRenderer and *more* actually render the components and interact with the inline chat, but I am writing this to elide the non-prompt interfacing for starters.  -->
+
+When you click on *Fix With Copilot*, it renders a prompt using JSX components. Not with React though! It uses its own renderer that generates plain text. So you can write a React-like hierarchy of small components. And one of the properties of the PromptElement is `priority`, so the renderer can drop low-priority components  if the total prompt size gets too big. Overall, it's a clever approach to building text that works about as well for generating a prompt as it does for generating a web page.
+<!-- see inlineChatFix4Prompt.tsx (old version for now) -->
+
+    Show example snippet here, priming the next paragraphs
+
+What components are there? The main ones are:
+
+- Include code surrounding the error.
+- Format the error nicely.
+- Provide instructions to Copilot.
+
+By default Copilot tries to include the entire file around the error. Of course, most of this time this won't fit in the prompt. So next it tries to summarise the code outside the current function by selectively deleting code. By default it deletes all function bodies outside the current one.
+(By default it divides the file into blocks and builds a tree out of it. Then each block gets assigned a weight based on distance from the error, and nesting depth. Blocks below a cutoff are omitted, so the prompt will include code near the error and less and less detail further away. 
+
+    TODO: Find out from Martin how commonly this method is the one used, probably only describe the simple or complex one. This would be a good place for a diagram to explain the complex method.
+
+Formatting the error starts with the error text itself, unless my cookbook offers a replacement. But it also includes a couple of sub-components. The first includes code from related error spans. Language services can attach related information to an error, and Copilot will include the function that contains each related location. The other subcomponent is example usages, which is what I showed earlier for fixing Typescript errors. TODO: Make this longer, better structured and more readable.
+
+    Code snippet showing the cookbook data structure.
+
+TODO: Talk about the cookbook a little more. Objecty, applies to all languages, might not replace the error entirely.
+
+Before all of this, the prompt includes some [one-shot training](http://useful-link-here.com) to explain how to answer a code question, and how to format it so that the code is easy to parse.
+
+Then off to Copilot it goes. Once an answer comes back, we parse the reply into two parts: explanation and code. The explanation goes to the inline chat window. The code gets matched with code surrounding the original error. Once there's a good match, it's displayed as a diff. TODO: Make this more detailed and more readable.
+
 5. The code gets matched with the original span of the error.
 6. TODO: Find out how.
 7. The code gets diffed and displayed in a new-biased diff format.
@@ -55,9 +82,9 @@ Once you do, the problem is obvious. The last two parameters are swapped.
 
 
 #### Tasks
-- Fill in pictures or gifs.
-- Find a good example for base Fix With Copilot.
 - Learn about the missing pieces of my knowledge in the code.
 - Finish writing up the code part.
+- Find a good example for base Fix With Copilot.
+- Take new pictures or gifs (with better cropping than the current set)
 - Figure out how to mention my typescript extension work?
 
