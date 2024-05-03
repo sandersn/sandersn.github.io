@@ -38,21 +38,35 @@ Once you do, the problem is obvious. The last two parameters are swapped.
 
 ## But really, how does Fix With Copilot work?
 
-The first thing *Fix With Copilot* does is register as a fix provider for every kind of file. Every one. Then, for each document you have open, it requests errors and adds *Fix With Copilot* to the list of available fixes.
+The first thing *Fix With Copilot* does is register as a fix provider for every kind of file. Every single one. Then, for each document you have open, it requests errors and adds *Fix With Copilot* to the list of available fixes for each.
 <!-- see inlineChatCommand.ts:registerInlineChatCommands
 and inlineChatCodeActions.ts:QuickFixesProvider -->
 
 <!-- TODO: cut these two paragraphs -->
 Aside: technically, it starts inline chat with the starting user prompt `/fix ERROR TEXT HERE`, and the inline chat has the ability to recognise slash commands and map `/fix` to the Fix intent, which is the same between inline chat and panel chat. I'm not sure the additional detail is worth talking about.
 
-When you click on *Fix With Copilot*, it invokes inline chat, which uses InlineFixPromptCrafter to build a prompt with, InlineFix4Prompt or InlineFix3Prompt. (3 is what you get normally but 4 is in testing.)
+When you click on *Fix With Copilot*, it invokes inline chat, which uses InlineFixPromptCrafter to build a prompt, with InlineFix4Prompt or InlineFix3Prompt. (3 is what you get normally but 4 is in testing.)
 InlineFixPromptCrafter delegates the actual prompt crafting to PromptRenderer, which is two levels of indirection more than need to show up in this article.
 <!-- InlineFixPromptCrafter, PromptRenderer and *more* actually render the components and interact with the inline chat, but I am writing this to elide the non-prompt interfacing for starters.  -->
 
 When you click on *Fix With Copilot*, it renders a prompt using JSX components. Not with React though! It uses its own renderer that generates plain text. So you can write a React-like hierarchy of small components. And one of the properties of the PromptElement is `priority`, so the renderer can drop low-priority components  if the total prompt size gets too big. Overall, it's a clever approach to building text that works about as well for generating a prompt as it does for generating a web page.
 <!-- see inlineChatFix4Prompt.tsx (old version for now) -->
 
-    Show example snippet here, priming the next paragraphs
+```tsx
+diagnostics.map((d, idx) => {
+    const cookbook = getFixCookbook(documentContext.language.languageId, d);
+    return <>
+        <DiagnosticDescription 
+          diagnostic={d} 
+          cookbook={cookbook} 
+          showLineNumbers={this.props.showLineNumbers ?? false} 
+          maxLength={LINE_CONTEXT_MAX_SIZE} 
+          documentContext={documentContext} />
+        <DiagnosticRelatedInfo diagnostic={d} cookbook={cookbook} document={documentContext.document} />
+        <DiagnosticSuggestedFix cookbook={cookbook} />
+    </>;
+})
+```
 
 What components are there? The main ones are:
 
@@ -71,19 +85,21 @@ Formatting the error starts with the error text itself, unless my cookbook offer
 
 TODO: Talk about the cookbook a little more. Objecty, applies to all languages, might not replace the error entirely.
 
-Before all of this, the prompt includes some [one-shot training](http://useful-link-here.com) to explain how to answer a code question, and how to format it so that the code is easy to parse.
+Before all of this, the prompt includes some [one-shot training](http://useful-link-here.com) to explain how to answer a code question, and how to format it so that the code and the explanation are clearly separated.
 
-Then off to Copilot it goes. Once an answer comes back, we parse the reply into two parts: explanation and code. The explanation goes to the inline chat window. The code gets matched with code surrounding the original error. Once there's a good match, it's displayed as a diff. TODO: Make this more detailed and more readable.
+Then off to Copilot it goes. Once an answer comes back, we use markdown-it to parse the reply, making it easy to separate the explanation and the code. The explanation goes to the inline chat window. Meanwhile, we compare the code from Copilot's reply with the code surrounding the error. Typically, we use a custom diff algorithm to find the best place to make the edit, although there are a couple of fallbacks if that fails. Finally, we show the diff using VS Code's typical diff display. TODO: Make this more detailed and more readable.
 
 5. The code gets matched with the original span of the error.
-6. TODO: Find out how.
+6. The range is passed in from outside. The diff is potentially the whole file, or just the summarised parts.
 7. The code gets diffed and displayed in a new-biased diff format.
-8. TODO: Find out how.
+<!-- See editGeneration.ts:generateInlineEditWithUnknownBlock (and callers) -->
 
 
 #### Tasks
-- Learn about the missing pieces of my knowledge in the code.
-- Finish writing up the code part.
+- [x] Learn about the missing pieces of my knowledge in the code.
+- [x] Finish writing up the code part.
+- [ ] Daniel's comments
+- [ ] Polish the writing, especially near the end.
 - Find a good example for base Fix With Copilot.
 - Take new pictures or gifs (with better cropping than the current set)
 - Figure out how to mention my typescript extension work?
