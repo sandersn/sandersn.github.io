@@ -75,7 +75,9 @@ The first thing *Fix With Copilot* does is register as a fix provider for every 
 <!-- see inlineChatCommand.ts:registerInlineChatCommands
 and inlineChatCodeActions.ts:QuickFixesProvider -->
 
-When you click on *Fix With Copilot*, it invokes Copilot's inline chat with a hidden prompt constructed from JSX components. JSX&mdash;but not React. Copilot has its own renderer that generates plain text from JSX components, so *Fix With Copilot* is structured as a React-like hierarchy of small components. In addition to looking familiar, one clever property on all these components is `priority`. The renderer can drop low-priority components if the prompt gets too big. Here's an example of what the code looks like. `diagnostics` is the list of errors to be fixed:
+When you click on *Fix With Copilot*, it invokes Copilot's inline chat with a hidden prompt constructed from JSX components. JSX&mdash;but not React. Copilot has its own renderer that generates plain text from JSX components, so *Fix With Copilot* is structured as a React-like hierarchy of small components. In addition to looking familiar, one clever property on all these components is `priority`. The renderer can drop low-priority components if the prompt gets too big. 
+
+Here's an example of what the code looks like (`diagnostics` is the VS Code term for errors, warnings, etc):
 <!-- see inlineChatFix4Prompt.tsx (old version for now) -->
 
 ```tsx
@@ -106,22 +108,33 @@ The algorithm to do this is complicated. It uses the parse tree to assign depths
 
 ![ai-summarised-document.png](images/ai-summarised-document.png)
 
-Once every block has a distance and depth, each one gets a score and everything above a certain score gets abbreviated. In the simplified example above, if you just sum `distance` and `depth`, you can see that anything above 3 is abbreviated. The body of `while (node)` was `distance:1 + depth:3` and the body of `interface Node<T>` was `distance:2 + depth:2`.
+Once every block has a distance and depth, each one gets a score and everything above a certain score gets abbreviated. In the simplified example above, if you just sum `distance` and `depth`, you can see that anything above 3 is abbreviated. The body of `while (node)` was `distance:1 + depth:3` and the body of `interface Node<T>` was `distance:2 + depth:2`, so both get abbreviated.
 
-Formatting the error starts with the error text itself, plus a couple of sub-components. The first includes code from related error spans. Language services can attach related information to an error, and Copilot will include the function that contains each related location. The other subcomponent is example usages, which is what I showed earlier for fixing Typescript errors. TODO: Make this longer, better structured and more readable.
+Formatting the error starts with the error text itself, then adds a couple of sub-components: `DiagnosticRelatedInfo` and `DiagnosticSuggestedFix`. `DiagnosticRelatedInfo` itself adds two kinds of information: the first is any related code that the error itself returns. For example, Typescript errors like "Duplicate declaration" include the duplicated declaration as related info. The second kind of information is the source of imported functions like I showed above. *Fix With Copilot* finds the source of a called function in a language-independent way, using VS Code's language service API, although right now the code only applies to Typescript.
 
-    Code snippet showing the cookbook data structure.
+`DiagnosticSuggestedFix` is the 'nudge' I described earlier. Its uses a Javascript object to map error codes to additional instructions. Each language has a nested object. Here's a snippet of the object in the middle of the `"typescript:eslint"` object:
 
-TODO: Talk about the cookbook a little more. Objecty, applies to all languages, might not replace the error entirely.
+```ts
+'no-dupe-else-if': [
+    'Fix the duplicate condition to be different from the first.',
+    'Remove the duplicate condition',
+],
+'no-duplicate-case': [
+    {
+        title: 'Change the duplicate condition to be different.',
+        message: 'Do not delete the duplicate case, just fix it.',
+        replaceError: true
+    },
+    'Remove the duplicate condition',
+],
+'no-duplicate-imports': 'Merge the duplicated import lines.',
+```
 
-Before all of this, the prompt includes some [one-shot training](http://useful-link-here.com) to explain how to answer a code question, and how to format it so that the code and the explanation are clearly separated.
+In this object, errors can map to multiple instructions, like `no-dupe-else-if`, and the instructions can have a visible/hidden part, like `no-duplicate-case` does. Neither of those features are finished yet; currently only the first instruction gets added to the hidden prompt, and none of it is visible. Also, the instructions can request to replace the original error message, as `no-duplicate-case` does with `replaceError: true`. That's useful when the error message causes Copilot to do the wrong thing.
 
-Then off to Copilot it goes. Once an answer comes back, we use markdown-it to parse the reply, making it easy to separate the explanation and the code. The explanation goes to the inline chat window. Meanwhile, we compare the code from Copilot's reply with the code surrounding the error. Typically, we use a custom diff algorithm to find the best place to make the edit, although there are a couple of fallbacks if that fails. Finally, we show the diff using VS Code's typical diff display. TODO: Make this more detailed and more readable.
+Before all of this, the prompt includes [few-shot learning](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/advanced-prompt-engineering?pivots=programming-language-chat-completions#few-shot-learning) to explain how to answer a code question, and how to format it so that the code and the explanation are clearly separated.
 
-5. The code gets matched with the original span of the error.
-6. The range is passed in from outside. The diff is potentially the whole file, or just the summarised parts.
-7. The code gets diffed and displayed in a new-biased diff format.
-<!-- See editGeneration.ts:generateInlineEditWithUnknownBlock (and callers) -->
+Then off to Copilot it goes. Once an answer comes back, we use [markdown-it](https://github.com/markdown-it/markdown-it) to parse the reply, making it easy to separate the explanation and the code. The explanation goes to the inline chat window. Meanwhile, we compare the code from Copilot's reply with the code surrounding the error using a custom diff algorithm. Finally, we show the diff using VS Code's typical diff display.
 
 ## Tasks
 
@@ -129,6 +142,7 @@ Then off to Copilot it goes. Once an answer comes back, we use markdown-it to pa
 - [x] Finish writing up the code part.
 - [ ] Daniel's comments
 - [ ] Polish the writing, especially near the end.
+- [ ] more links to outside stuff? maybe. There aren't many dependencies.
 - [x] Find a good example for base Fix With Copilot.
 - [x] Take new pictures or gifs (with better cropping than the current set)
 - [ ] Figure out how to mention my typescript extension work?
