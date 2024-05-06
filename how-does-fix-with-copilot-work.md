@@ -100,14 +100,15 @@ What components are there? The main ones are:
 - Format the error nicely.
 - Provide instructions to Copilot.
 
-By default *Fix With Copilot* includes the entire file around the error. Of course, most of this time the entire file won't fit in the prompt. Instead, it includes the code in current function and summarizes code outside. The summary is constructed by X.
+By default *Fix With Copilot* includes the entire file around the error. Of course, most of this time the entire file won't fit in the prompt. Instead, it includes the code in current function and summarizes code outside. 
 
-So next it tries to summarise the code outside the current function by selectively deleting code. By default it deletes all function bodies outside the current one.
-(By default it divides the file into blocks and builds a tree out of it. Then each block gets assigned a weight based on distance from the error, and nesting depth. Blocks below a cutoff are omitted, so the prompt will include code near the error and less and less detail further away. 
+The algorithm to do this is complicated. It uses the parse tree to assign depths and distances to each block in the file. For example, the top-level `interface Node<T>` in the diagram is `distance: 2, depth: 1` from the error-containing function `errorInHere`. The body of `findRoot<T>` is `distance: 1, depth: 2`, since it's only one function above the error, but it's one down from the top level.
 
-    TODO: Find out from Martin how commonly this method is the one used, probably only describe the simple or complex one. This would be a good place for a diagram to explain the complex method.
+![ai-summarised-document.png](images/ai-summarised-document.png)
 
-Formatting the error starts with the error text itself, unless my cookbook offers a replacement. But it also includes a couple of sub-components. The first includes code from related error spans. Language services can attach related information to an error, and Copilot will include the function that contains each related location. The other subcomponent is example usages, which is what I showed earlier for fixing Typescript errors. TODO: Make this longer, better structured and more readable.
+Once every block has a distance and depth, each one gets a score and everything above a certain score gets abbreviated. In the simplified example above, if you just sum `distance` and `depth`, you can see that anything above 3 is abbreviated. The body of `while (node)` was `distance:1 + depth:3` and the body of `interface Node<T>` was `distance:2 + depth:2`.
+
+Formatting the error starts with the error text itself, plus a couple of sub-components. The first includes code from related error spans. Language services can attach related information to an error, and Copilot will include the function that contains each related location. The other subcomponent is example usages, which is what I showed earlier for fixing Typescript errors. TODO: Make this longer, better structured and more readable.
 
     Code snippet showing the cookbook data structure.
 
