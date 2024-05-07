@@ -1,29 +1,29 @@
 # How Does *Fix With Copilot* Work?
 If you've [used Github Copilot in VS Code](https://docs.github.com/en/copilot/github-copilot-chat/using-github-copilot-chat-in-your-ide), you might have noticed that it offers a new option in the quick fix menu: *Fix With Copilot*. It's available for every error in every language.
 
-![Error from ESLint](images/ai-no-unmodified-loop-condition-3.png)
+![Code: ```export interface Node<T> { payload: T; parent: Node<T> | undefined; } export function findRoot<T>(start: Node<T>) { let node: Node<T> | undefined = start; let prev: Node<T> | undefined = node; while (start) { prev = node; node = node!.parent; } return prev; }``` There is an error on `while (start)`, "start is not modified in the loop". There is a Quick Fix menu open with "Fix using Copilot" highlighted.](images/ai-no-unmodified-loop-condition-3.png)
 
 This works well with the many excellent ESLint rules that don't have fixers for one reason or another. For example, take the ESLint rule [`no-unmodified-loop-condition`](https://eslint.org/docs/latest/rules/no-unmodified-loop-condition). It makes sure that a `while` loop body updates the variable it's checking.
 
-![Error from ESLint](images/ai-no-unmodified-loop-condition-1.png)
+![Code: ```export interface Node<T> { payload: T; parent: Node<T> | undefined; } export function findRoot<T>(start: Node<T>) { let node: Node<T> | undefined = start; let prev: Node<T> | undefined = node; while (start) { prev = node; node = node!.parent; } return prev; }``` There is an error on `while (start)`, "start is not modified in the loop".](images/ai-no-unmodified-loop-condition-1.png)
 
 There's no single way to fix this error, so ESLint doesn't have a fixer for it. But Copilot can figure out what's wrong: you should be checking `node` in the while loop, not `start`. It's the kind of silly mistake that's invisible until somebody else points it out.
 
-![Error from ESLint](images/ai-no-unmodified-loop-condition-2.png)
+![Code: ```export interface Node<T> { payload: T; parent: Node<T> | undefined; } export function findRoot<T>(start: Node<T>) { let node: Node<T> | undefined = start; let prev: Node<T> | undefined = node; while (node) { prev = node; node = node!.parent; } return prev; }``` There is a Copilot inline chat window open with "/fix 'start' is not modified in this loop". Copilot has replied, "The problem is that the loop condition is checking the 'start' variable, which is not being modified within the loop. To fix this, you should check the 'node' variable instead". `while (node)` is highlighted as a diff insertion.](images/ai-no-unmodified-loop-condition-2.png)
 	
 Sometimes Copilot needs more information to fix errors. Here's another great ESLint rule: [`no-dupe-else-if`](https://eslint.org/docs/latest/rules/no-dupe-else-if). It catches if/else conditions that are duplicated by mistake. 
 
-![Invoking AI](images/ai-no-dupe-if-1.png)
+![Code: ```export function isDeepLooseEqual(o1: unknown, o2: unknown): boolean { if (Array.isArray(o1) && Array.isArray(o2)) { if (o1.length === o2.length) { return o1.map((v, i) => isDeepLooseEqual(v, o2[i])).every(Boolean); } else if (o1.length < o2.length) { return o2.map((v, i) => isDeepLooseEqual(v, o1[i])).every(Boolean); } else if (o1.length < o2.length) { return o1.map((v, i) => isDeepLooseEqual(v, o2[i])).every(Boolean); } } return o1 === o2; }``` There is an error on the second `else if (o1.length < o2.length)`, "This branch can never execute".](images/ai-no-dupe-if-1.png)
 
 The rule points out a copy/paste error made by forgetting to update the third condition of three very similar conditions. When you ask Copilot for a fix, you can get the right answer because, in a recent update to its VS Code extension, we added some additional instructions to the hidden Copilot prompt.
 
-![Invoking AI](images/ai-no-dupe-if-2.png)
+![Code: ```export function isDeepLooseEqual(o1: unknown, o2: unknown): boolean { if (Array.isArray(o1) && Array.isArray(o2)) { if (o1.length === o2.length) { return o1.map((v, i) => isDeepLooseEqual(v, o2[i])).every(Boolean); } else if (o1.length < o2.length) { return o2.map((v, i) => isDeepLooseEqual(v, o1[i])).every(Boolean); } else if (o1.length > o2.length) { return o1.map((v, i) => isDeepLooseEqual(v, o2[i])).every(Boolean); } } return o1 === o2; }``` There is a Copilot inline chat window open with "/fix This branch can never execute. Its condition is a duplicate or covered by previous conditions in the if-else-if chain". Copilot has replied, "To fix the issue, I would change the duplicate condition in the `else if` statement to be different from the first condition". The last `o1.length > o2.length` is highlighted as a diff.](images/ai-no-dupe-if-2.png)
 
 Without a nudge in the right direction, Copilot would say that the third condition should be deleted -- after all, duplicate code is bad, right?
 
 Another place Copilot needs help is fixing a TypeScript error when you call an imported function with bad arguments:
 
-![Invoking AI](images/ai-bad-call-6.png)
+![Code: ```import { connect, findRow } from './database-mock'; export function findCustomer(name: string, location: string) { try { connect('192.168.0.1', /* loose */ false, 1000); } catch (e) { console.error(e);``` There is an error on `/* loose */ false`, "Argument of type 'boolean' is not assignable to parameter of type 'number'."](images/ai-bad-call-6.png)
 
  In this code the last two arguments to `connect` are swapped...but there's no way to know that wihout looking at the source of `connect`. So we added the ability to look up imported functions to *Fix With Copilot*.
 
@@ -36,7 +36,7 @@ export function connect(address: string, timeout: number, loose: boolean) {
 
 Once Copilot has the source of `connect` in the hidden prompt, the fix is easy:
 
-![Invoking AI](images/ai-bad-call-4.png)
+![Code: ```import { connect, findRow } from './database-mock'; export function findCustomer(name: string, location: string) { try { connect('192.168.0.1', 1000, /* loose */ false); } catch (e) { console.error(e);``` There is an inline Copilot chat window open with "/fix Argument of type 'boolean' is not assignable to parameter of type 'number'." Copilot has replied, "The issue is that the arguments passed to the `connect` function are in the wrong order. The `connect` function expects the second argument to be a number (timeout) and the third argument to be a boolean (loose). To fix this, you should swap the second and third arguments". `1000` is highlighted as a diff insertion.](images/ai-bad-call-4.png)
 
 ## Why Does Copilot Work This Way?
 
@@ -52,21 +52,21 @@ Sometimes an error message does this: Did you tell Copilot "*'start' is not modi
 
 In contrast, if you tell Copilot "*This branch can never execute.*", it'll probably find a lot of training that suggests that dead code should be deleted. But it doesn't consider intent or context. Sure, if you're writing an optimiser, dead code elimination is part of the job. But if you end up with a duplicate in an editor, it's more likely that you were copying a long series of cases and forgot to update one of them. (That's why I like the `no-dupe-else-if` rule so much. It's **always** paying attention.)
 
-![Invoking AI](images/ai-no-dupe-if-3.png)
+![Code: ```export function isDeepLooseEqual(o1: unknown, o2: unknown): boolean { if (Array.isArray(o1) && Array.isArray(o2)) { if (o1.length === o2.length) { return o1.map((v, i) => isDeepLooseEqual(v, o2[i])).every(Boolean); } else if (o1.length < o2.length) { return o2.map((v, i) => isDeepLooseEqual(v, o1[i])).every(Boolean); } } return o1 === o2; }``` There is a Copilot inline chat window open with "/fix This branch can never execute. Its condition is a duplicate or covered by previous conditions in the if-else-if chain". Copilot has replied, "To fix the problem, I would remove the duplicate condition in the `else if` statement".](images/ai-no-dupe-if-3.png)
 
 So, specifically for `no-dupe-else-if`, we nudge Copilot to update the copied code. We add "*Fix the duplicate condition to be different from the first.*" to the hidden prompt. Not only does Copilot fix the duplicate case this way, it even gives our nudge as the reason it did so:
 
-![Invoking AI](images/ai-no-dupe-if-2.png)
+![Code: ```export function isDeepLooseEqual(o1: unknown, o2: unknown): boolean { if (Array.isArray(o1) && Array.isArray(o2)) { if (o1.length === o2.length) { return o1.map((v, i) => isDeepLooseEqual(v, o2[i])).every(Boolean); } else if (o1.length < o2.length) { return o2.map((v, i) => isDeepLooseEqual(v, o1[i])).every(Boolean); } else if (o1.length > o2.length) { return o1.map((v, i) => isDeepLooseEqual(v, o2[i])).every(Boolean); } } return o1 === o2; }``` There is a Copilot inline chat window open with "/fix This branch can never execute. Its condition is a duplicate or covered by previous conditions in the if-else-if chain". Copilot has replied, "To fix the issue, I would change the duplicate condition in the `else if` statement to be different from the first condition". The last `o1.length > o2.length` is highlighted as a diff.](images/ai-no-dupe-if-2.png)
 
 Sometimes error messages don't actively mislead so much as fail to imply a solution. When you call a function with bad argument types, TypeScript says "*Argument of type 'boolean' is not assignable to parameter of type 'number'.*" but doesn't tell you how to fix it. That's on purpose: TypeScript has no way to know whether the call or the function itself is wrong.
 
 Copilot would be able to guess, but *Fix With Copilot* can't even see `connect`'s code because it's imported&mdash;not in the same file. And there's no way for anybody to figure out that `connect`'s arguments are swapped without seeing the source code. So, with just the error message to go on, Copilot makes a very local change: it changes `false` to the "nearest `number` equivalent": `0`. That technically fixes the error but another immediately pops up, because it's really not a correct fix.
 
-![Invoking AI](images/ai-bad-call-6.png)
+![Code: ```import { connect, findRow } from './database-mock'; export function findCustomer(name: string, location: string) { try { connect('192.168.0.1', /* loose */ false, 1000); } catch (e) { console.error(e);``` There is an error on `/* loose */ false`, "Argument of type 'boolean' is not assignable to parameter of type 'number'."](images/ai-bad-call-6.png)
 
 After we include the code for `connect` in the hidden prompt, Copilot can figure out that the arguments are swapped. That signature, `function connect(address: string, timeout: number, loose: boolean)`, strongly implies that the correct order is `timeout, loose`, not `loose, timeout`.
 
-![Invoking AI](images/ai-bad-call-4.png)
+![Code: ```import { connect, findRow } from './database-mock'; export function findCustomer(name: string, location: string) { try { connect('192.168.0.1', 1000, /* loose */ false); } catch (e) { console.error(e);``` There is an inline Copilot chat window open with "/fix Argument of type 'boolean' is not assignable to parameter of type 'number'." Copilot has replied, "The issue is that the arguments passed to the `connect` function are in the wrong order. The `connect` function expects the second argument to be a number (timeout) and the third argument to be a boolean (loose). To fix this, you should swap the second and third arguments". `1000` is highlighted as a diff insertion.](images/ai-bad-call-4.png)
 
 ## But really, how does *Fix With Copilot* work?
 
@@ -110,7 +110,7 @@ By default *Fix With Copilot* includes the entire file around the error. Of cour
 
 The algorithm to do this is complicated. It uses the parse tree to assign depths and distances to each block in the file. For example, the top-level `interface Node<T>` in the diagram is `distance: 2, depth: 1` from the error-containing function `errorInHere`. The body of `findRoot<T>` is `distance: 1, depth: 2`, since it's only one function above the error, but it's one down from the top level.
 
-![ai-summarised-document.png](images/ai-summarised-document.png)
+![Code on the left surrounded by nested blocks. Each block is with with numbers. Block with `export interface Node<T>` annotated `{ distance: 2, depth: 1 }`. Block with `payload: T; parent?: Node<T>;` annotated `2,2`. Block with `export function findRoot<T>(start: Node<T>)` annotated `1,1`. Block with `let node: Node<T> | undefined = start; let prev: Node<T> | undefined = node; while (node)` annotated `1,2`. Block with `prev = node; node = node!.parent;` annotated `1,3`. Block with `function errorInHere() { // error is in this function }` annotated `0,1`. The same code is on the right, but here, any block with numbers that sum to 4 or more has had its code replaced with `// ...`.](images/ai-summarised-document.png)
 
 Once every block has a distance and a depth, each one gets a score and everything above a certain score gets abbreviated. To keep the example simple, let's just add `distance` and `depth` to get the score. Then you can see that anything with a scor above 3 is abbreviated. The body of `while (node)` was `distance:1 + depth:3` and the body of `interface Node<T>` was `distance:2 + depth:2`, so both get abbreviated.
 
@@ -162,7 +162,7 @@ Screenshots use the *Light (Visual Studio)* theme. The ErrorLens and HoverLens e
 - [x] more links to outside stuff? maybe. There aren't many dependencies.
 - [x] Find a good example for base Fix With Copilot.
 - [x] Take new pictures or gifs (with better cropping than the current set)
+- [x] add alt text
 - [ ] Figure out how to mention my typescript extension work?
-- [ ] add alt text
 - [ ] rename file names to be in order/remove unused images
 
