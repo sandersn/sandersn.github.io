@@ -1,9 +1,9 @@
 # How Does *Fix With Copilot* Work?
-If you've used Github Copilot in VS Code, you might have noticed that it offers a new option in the quick fix menu: *Fix With Copilot*. It's available for every error in every language.
+If you've [used Github Copilot in VS Code](https://docs.github.com/en/copilot/github-copilot-chat/using-github-copilot-chat-in-your-ide), you might have noticed that it offers a new option in the quick fix menu: *Fix With Copilot*. It's available for every error in every language.
 
 ![Error from ESLint](images/ai-no-unmodified-loop-condition-3.png)
 
-This works well with the many excellent ESLint rules that don't have fixers for one reason or another. For example, take the ESLint rule `no-unmodified-loop-condition`. It makes sure that a `while` loop body updates the variable it's checking.
+This works well with the many excellent ESLint rules that don't have fixers for one reason or another. For example, take the ESLint rule [`no-unmodified-loop-condition`](https://eslint.org/docs/latest/rules/no-unmodified-loop-condition). It makes sure that a `while` loop body updates the variable it's checking.
 
 ![Error from ESLint](images/ai-no-unmodified-loop-condition-1.png)
 
@@ -11,7 +11,7 @@ There's no single way to fix this error, so ESLint doesn't have a fixer for it. 
 
 ![Error from ESLint](images/ai-no-unmodified-loop-condition-2.png)
 	
-Sometimes Copilot needs more information to fix errors. Here's another great ESLint rule: `no-dupe-else-if`. It catches if/else conditions that are duplicated by mistake. 
+Sometimes Copilot needs more information to fix errors. Here's another great ESLint rule: [`no-dupe-else-if`](https://eslint.org/docs/latest/rules/no-dupe-else-if). It catches if/else conditions that are duplicated by mistake. 
 
 ![Invoking AI](images/ai-no-dupe-if-1.png)
 
@@ -21,7 +21,7 @@ The rule points out that I've made a copy/paste error by forgetting to update th
 
 Without a nudge in the right direction, Copilot thinks that deletion is the best answer -- after all, duplicate code is bad, right?
 
-Another place Copilot needs help is fixing a Typescript error when I call an imported function with bad arguments:
+Another place Copilot needs help is fixing a TypeScript error when I call an imported function with bad arguments:
 
 ![Invoking AI](images/ai-bad-call-6.png)
 
@@ -41,7 +41,6 @@ Once I give Copilot the source of `connect` in the hidden prompt, the fix is eas
 ## Why Does Copilot Work This Way?
 
 So why does Copilot need this help? What happens if it's not there? Let's start by looking at how *Fix With Copilot* works at a high level.
-<!-- speculative -->
 
 At its core, *Fix With Copilot* is pretty simple: for any error in your code, it asks Copilot "There's an error ***\[\[Error Text Here\]\]*** in the code ***\[\[Code Here\]\]***. Can you fix it?"
 
@@ -59,26 +58,26 @@ So, specifically for `no-dupe-else-if`, I nudge Copilot to update the copied cod
 
 ![Invoking AI](images/ai-no-dupe-if-2.png)
 
-Sometimes error messages don't actively mislead so much as fail to imply a solution. When you call a function with bad argument types, Typescript says "*Argument of type 'boolean' is not assignable to parameter of type 'number'.*" but doesn't tell you how to fix it. That's on purpose: Typescript has no way to know whether the call or the function itself is wrong.
+Sometimes error messages don't actively mislead so much as fail to imply a solution. When you call a function with bad argument types, TypeScript says "*Argument of type 'boolean' is not assignable to parameter of type 'number'.*" but doesn't tell you how to fix it. That's on purpose: TypeScript has no way to know whether the call or the function itself is wrong.
 
-Copilot might be able to guess, but *Fix With Copilot* can't even see `connect`'s code because it's imported. There's no way for anybody to figure out that the arguments are swapped. So, with just the error message to go on, Copilot makes a very local change: it reasons that `0` is the closest `number` equivalent of `false`. That technically fixes the error but another immediately pops up, because it's not a correct fix.
+Copilot might be able to guess, but *Fix With Copilot* can't even see `connect`'s code because it's imported. There's no way for anybody to figure out that the arguments are swapped without seeing `connect`. So, with just the error message to go on, Copilot makes a very local change: it reasons that `0` is the closest `number` equivalent of `false`. That technically fixes the error but another immediately pops up, because it's not a correct fix.
 
 ![Invoking AI](images/ai-bad-call-3.png)
 
-When I look up and include the code for `connect` in the hidden prompt, Copilot can figure out that the arguments are swapped.
+After I include the code for `connect` in the hidden prompt, Copilot can figure out that the arguments are swapped. Seeing that signature `function connect(address: string, timeout: number, loose: boolean)` strongly implies that the correct order is `timeout, loose`, not `loose, timeout`.
 
 ![Invoking AI](images/ai-bad-call-2.png)
 
-## But really, how does Fix With Copilot work?
+## But really, how does *Fix With Copilot* work?
+
+So that's why these additional instructions and context are needed.
+Now let's talk about how they fit into the actual implementation of *Fix With Copilot*.
 
 The first thing *Fix With Copilot* does is register as a fix provider for every kind of file. Every single one. Then, for each document you have open, it requests errors and adds *Fix With Copilot* to the list of available fixes for each.
-<!-- see inlineChatCommand.ts:registerInlineChatCommands
-and inlineChatCodeActions.ts:QuickFixesProvider -->
 
-When you click on *Fix With Copilot*, it invokes Copilot's inline chat with a hidden prompt constructed from JSX components. JSX&mdash;but not React. Copilot has its own renderer that generates plain text from JSX components, so *Fix With Copilot* is structured as a React-like hierarchy of small components. In addition to looking familiar, one clever property on all these components is `priority`. The renderer can drop low-priority components if the prompt gets too big. 
+When you click on *Fix With Copilot*, it invokes Copilot's inline chat with a hidden prompt constructed from JSX components. JSX&mdash;but not React. Copilot has its own renderer that generates plain text from JSX components, so *Fix With Copilot*'s prompt is structured as a React-like hierarchy of small components, which is useful for managing the different features of the prompt. As a bonus, it gives the code familiar visual ergonomics.
 
-Here's an example of what the code looks like (`diagnostics` is the VS Code term for errors, warnings, etc):
-<!-- see inlineChatFix4Prompt.tsx (old version for now) -->
+Here's an example of what the code looks like. `diagnostics` is the VS Code term for errors, warnings, etc. `cookbook` is the term for the per-error nudges in the form of extra instructions. `documentContext` has a reference to the current document, its language, and similar information.
 
 ```tsx
 diagnostics.map((d, idx) => {
@@ -110,7 +109,7 @@ The algorithm to do this is complicated. It uses the parse tree to assign depths
 
 Once every block has a distance and depth, each one gets a score and everything above a certain score gets abbreviated. In the simplified example above, if you just sum `distance` and `depth`, you can see that anything above 3 is abbreviated. The body of `while (node)` was `distance:1 + depth:3` and the body of `interface Node<T>` was `distance:2 + depth:2`, so both get abbreviated.
 
-Formatting the error starts with the error text itself, then adds a couple of sub-components: `DiagnosticRelatedInfo` and `DiagnosticSuggestedFix`. `DiagnosticRelatedInfo` itself adds two kinds of information: the first is any related code that the error itself returns. For example, Typescript errors like "Duplicate declaration" include the duplicated declaration as related info. The second kind of information is the source of imported functions like I showed above. *Fix With Copilot* finds the source of a called function in a language-independent way, using VS Code's language service API, although right now the code only applies to Typescript.
+Formatting the error starts with the error text itself, then adds a couple of sub-components: `DiagnosticRelatedInfo` and `DiagnosticSuggestedFix`. `DiagnosticRelatedInfo` itself adds two kinds of information: the first is any related code that the error itself returns. For example, TypeScript errors like "Duplicate declaration" include the duplicated declaration as related info. The second kind of information is the source of imported functions like I showed above. *Fix With Copilot* finds the source of a called function in a language-independent way, using VS Code's language service API, although right now the code only applies to TypeScript.
 
 `DiagnosticSuggestedFix` is the 'nudge' I described earlier. Its uses a Javascript object to map error codes to additional instructions. Each language has a nested object. Here's a snippet of the object in the middle of the `"typescript:eslint"` object:
 
@@ -140,8 +139,10 @@ Then off to Copilot it goes. Once an answer comes back, we use [markdown-it](htt
 
 - [x] Learn about the missing pieces of my knowledge in the code.
 - [x] Finish writing up the code part.
-- [ ] Daniel's comments
-- [ ] Polish the writing, especially near the end.
+- [x] Daniel's comments
+- [x] Polish the writing, especially near the end.
+- [x] consistency: spelling of brand names (TypeScript, eslint, vscode, Fix With Copilot)
+- [ ] consistency: verb tense and person. Separate I=example code, we=copilot code.
 - [ ] more links to outside stuff? maybe. There aren't many dependencies.
 - [x] Find a good example for base Fix With Copilot.
 - [x] Take new pictures or gifs (with better cropping than the current set)
