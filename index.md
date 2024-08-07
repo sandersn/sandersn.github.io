@@ -11,6 +11,7 @@ Some quick opinions, mostly transcribed from discord or mastodon. Not fact-check
 - [Types vs Interfaces](types-vs-interfaces.html)
 - [Separate Binder and Checker](separate-binder-and-checker.html)
 - [Separate Type and Value Languages](separate-type-and-value-languages.html)
+- [Design Principles for new JSDoc tags in modern Typescript](typescript-modern-jsdoc.html)
 
 ## How To
 
