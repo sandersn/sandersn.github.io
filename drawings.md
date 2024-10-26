@@ -1,9 +1,16 @@
+<style>
+  img {
+    max-height: calc(100vh - 40px);
+    width: auto;
+  }
+</style>
+
 ## Majula Approach
 December 2023
 
 ![The sun sets over the sea, behind an obilisk on a darkened promontory. A player character in classic Dark Souls stance is on the path above: one foot and hand forward, the other two backward. At the edge of a path is a wonky wooden fence abutted by sparse, tall grasses.](images/Majula_Approach.jpg)
 
-Dark Souls 2 in the exception that proves the rule (as in many other things). The scene is so striking and strange that the incorrect shadows don't hurt it very much.
+Dark Souls 2 is the exception that proves the rule (as in many other things). The scene is so striking and strange that the incorrect shadows don't hurt it very much.
 
 Landscapes take me so long that I feel like my style is all over the place by the time they're done.
 
