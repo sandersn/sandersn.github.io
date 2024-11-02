@@ -29,6 +29,7 @@ Some quick opinions, mostly transcribed from discord or mastodon. Not fact-check
 - [Wave 6](reviews-wave-6.html)
 - [Wave Christmas 2022](reviews-wave-christmas-2022.html)
 - [Wave 7](reviews-wave-7.html)
+- [Wave Christmas 2023](reviews-wave-christmas-2023.html)
 
 ## Other
 
