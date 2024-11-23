@@ -6,6 +6,7 @@
 </style>
 
 ## Stairs At Night
+
 April 2024
 
 ![Stairs viewed from the side. Yellow light from above casts harsh shadows. The stairs turn a corner and continue down. A window is visible in the corner distance.](images/Stairs_at_Night.png)
@@ -13,6 +14,7 @@ April 2024
 Perspective study
 
 ## iPad Stand
+
 January 2024
 
 ![A dark grey pillow-style iPad stand.](images/iPad_stand.png)
@@ -20,6 +22,7 @@ January 2024
 Perspective and colour study
 
 ## Night computing
+
 January 2024
 
 ![A figure sitting on a couch with a laptop. She is lit by the laptop and by a lamp that isn't part of the painting. There is a suggestion of a footstool beside and a cat sleeping by it.](images/Night_computing.png)
