@@ -22,7 +22,7 @@ It's a mess. You start by plugging in the headset, which launches Windows Mixed 
 
 To actually *use* the headset for playing games, you need to launch SteamVR and install a small plugin. This works as well as SteamVR ever does, but with extra bugs. Specifically, if games request too much VRAM&mdash;and for this high-resolution headset, they will&mdash;the WMR driver has had problems with memory leaks followed by crashing throughout 2022. (Based on reading release notes.)
 
-I recently upgraded to a 12 GB Nvidia card which helps a lot, but several games crashed a lot when running at full resolution on an 8 GB card. You can reduce the resolution, and because of the way scaling and pixel fill works on a high-resolution panel, it still looks better than a low-resolution card. But it's disappointing in a PC-gaming kind of way, in which you have to turn down a barely-noticeable setting because your computer isn't good enough.
+I recently upgraded to a 12 GB Nvidia card which helps a lot, but several games crashed a lot when running at full resolution on an 8 GB card. You can reduce the resolution, and because of the way scaling and pixel fill works on a high-resolution panel, it still looks better than a low-resolution panel. But it's disappointing in a PC-gaming kind of way, in which you have to turn down a barely-noticeable setting because your computer isn't good enough.
 
 Finally, if you want to use index controllers (see next section), there's additional setup each time.
 All in all, the experience is better than my HTC Vive in 2016. Specifically, there are fewer steps to get started, which poses less of a barrier to playing each time. (Also it helps that the headset is much more comfortable, which poses less of an unconscious barrier to being subtly tortured.)
@@ -52,11 +52,11 @@ Note that if the headset can't find the bounds, or loses positional tracking bef
 
 Pretty anaemic. I stopped paying attention for 3 years and there have been a trickle of popular new games in that time. Looking at the top games on Steam, they're largely the same as 3-4 years ago. 
 
-Facebook has is in the process of pivoting away from VR to AI. VR has real advantages for some things, but I think it's going to be dormant for a while until somebody makes good AR hardware, at which point VR will come along for the ride in domains where it makes sense.
+Facebook is in the process of pivoting away from VR to AI. VR has real advantages for some things, but I think it's going to be dormant for a while until somebody makes good AR hardware, at which point VR will come along for the ride in domains where it makes sense.
 
 Over the last 6 months, I've played 3 full games: COMPOUND, Psychonauts and Half-Life Alyx; a few VR ports like Skyrim, plus nice updates for the same old games I've had since 2016: Subnautica, Elite Dangerous and Obduction. Oh, and 2-3 new games that are basically tech demos or low-budget prototypes: Boneworks, Into the Radius. Interesting, but not actually fun to play.
 
-The easiest way to summarise all this is: Skyrim VR is the best "new" game I played. It's the same game, but a new experience in VR. VR is a real advance in videogames. There are two genuinely new, genuinely good interactions: aiming and grabbing. That plus head-tracking and stereography makes it about as big as the switch to from 2D to 3D games. The problem is that current 3D games are highly polished and VR is expensive,complex and uncomfortable, so there's not enough reason to switch.
+The easiest way to summarise all this is: Skyrim VR is the best "new" game I played. It's the same game, but a new experience in VR. VR is a real advance in videogames. There are two genuinely new, genuinely good interactions: aiming and grabbing. That plus head-tracking and stereography makes it about as big as the switch to from 2D to 3D games. The problem is that current 3D games are highly polished and VR is expensive, complex and uncomfortable, so there's not enough reason to switch.
 
 ## Addendum: Comparison to Apple Vision
 
@@ -73,3 +73,7 @@ The Reverb is quite comfortable, and&mdash;who knows&mdash;could be as comfortab
 Overall, I feel like this is a good end-of-2nd-gen headset if you can find it for cheap enough. It nails some aspects of the experience, but has real shortcomings in many others. It's nothing like a 3rd generation product that manages to address all aspects of the experience adequately for a decent price. And HP seems to agree with me, since I feel like the company is treating this like the last headset they'll make for a while; the Black Friday sale felt like an attempt to clear out inventory. VR gaming is likely headed for a dormant period, so if you're an enthusiast, the Reverb, the Index or the PSVR2 are your best options for the 2nd generation.
 
 I've been pretty critical, but I like this headset. If you can find it for less than $600, and have a way to replace the ridiculous controllers, I'd recommend it.
+
+## Addendum: 2025 Postscript
+
+This was a bad recommendation. After abandoning Windows Mixed Reality software, Microsoft [went on to **disable** all Windows Mixed Reality headsets in a Windows Update](https://www.uploadvr.com/windows-11-24h2-kills-windows-mr-support/) in late 2024. You should to gauge Microsoft's interest in their closed-source software closely before you decide how much to rely on it.
