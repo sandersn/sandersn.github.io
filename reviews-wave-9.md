@@ -1,10 +1,11 @@
 # Reviews Wave 9
-Recommended: Half-Life 2, especially in VR. Streets of Rogue. Might and Magic **7** if you want to put some work into getting a game to work. Fallout New Vegas if you want to put **a lot** of work into getting a game to work. Maybe Bethesda will remake Fallout 3 so modders can make a modern New Vegas.
+I certainly played a lot of long, janky games in this wave. Can't recommend any of them for a general audience, though.
+Recommended: Half-Life 2, especially in VR. Streets of Rogue. Might and Magic **7** (not 8) if you want to put some work into getting a game running. Fallout New Vegas if you want to put **a lot** of work into getting a game to work. Maybe Bethesda will remake Fallout 3 so modders can make a modern New Vegas.
 
 ## Half-Life 2 VR
-Half-Life 2 is amazing in VR. I've played a decent number of VR (con)versions at this point, and they re-weight and alter the emphasis of the game -- locations become awe-inspiring, or too-obviously sparse. Mechanics become harder, or nearly trivial. Half-Life 2 changes the least of any I've played. The main difference is that aiming feels harder and more exciting, but the aiming in VR has such a higher precision that it's actually about the same. Manhacks are *much* easier and satisfying to take out with swings of the crowbar.
+Half-Life 2 is amazing in VR. I've played a decent number of VR (con)versions at this point, and they re-weight and alter the emphasis of the game -- locations become awe-inspiring, or too-obviously sparse. Mechanics become harder, or nearly trivial. Half-Life 2 changes the least of any I've played. The main difference is that aiming feels harder and more exciting, but the aiming in VR has such a higher precision that the difficulty is actually about the same&mdash;although manhacks are *much* easier and more satisfying to take out with swings of the crowbar.
 
-Tip: All weapons can be held with two hands to improve their stability, but it's essential with rapid-fire. I didn't figure that one out till Episode 1, and it made me want to replay the whole thing from scratch. Again.
+Tip: All weapons can be held with two hands to improve their stability, and it's essential with rapid-fire. I didn't figure that one out till Episode 1, and it made me want to replay the whole thing from scratch. Again.
 
 ## Might and Magic 8
 Might and Magic 8 is a tweak of the formula that Might and Magic 7 got right. It's an attempt to be interesting but none of the changes really improve things.
@@ -39,12 +40,13 @@ On the surface, Two Worlds *looks* like an Oblivion rip-off. Two Worlds II *look
 ## Fallout 3/New Vegas
 ![The distant, skeletal outlines of the US Capitol Building and Washington Monument are visible among other buildings across a rocky wasteland.](images/fallout-3.jpg)
 
-![The distant, skeletal outlines of the US Capitol Building and Washington Monument are visible among other buildings across a rocky wasteland.](images/fallout-new-vegas.jpg)
 I remember Fallout 3 being an improved sequel to Oblivion; both lend themselves to wandering aimlessly looking to turn up interesting things. Fallout 3's were just more interesting than Oblivion's, and the mechanics were refined. In particular I remember the DC subway had the right balance of wearing grind to interesting navigation. Fallout New Vegas, on the other hand, was a little difficult at the beginning and was not at all designed for aimless spelunking. Everything was part of one story or another. I appreciated it as a game but didn't like it as much as Fallout 3.
 
 On replay, though. Well. The more businesslike, goal-focussed way I go at replays really makes New Vegas shine whereas Fallout 3 does nothing but get in my way wasting my time. With the novelty diminished, Fallout 3 is too simple, and Fallout New Vegas' complexity is more manageable.
 
 Side note: I also played the integrated Fallout 3/New Vegas mod of the New Vegas engine, meaning that to get to New Vegas, I had to play Fallout 3 long enough to sneak right by the US Capitol. Starting New Vegas at a decent level makes that game quite a bit easier.
+
+![Goodsprings, a small, dusty farming village, is framed by a decaying wooden picket fence. Power lines march along the road that leads toward New Vegas as the sun rises in the east.](images/fallout-new-vegas.jpg)
 
 ## Xanadu Next
 Xanadu Next is a JRPG-adjacent take on Diablo, built on the Ys engine. It's tuned to be a bit harder than Diablo's default, and there's no loot, just gold. Unfortunately, it's hard for me to describe other than "Diablo crossed with Ys." because while that may make for a *good* game, it's not an incredibly *deep* one.
@@ -76,10 +78,10 @@ Lucifer Among Us feels like a Western take on Phoenix Wright: more emphasis on t
 ## Xenoblade Chronicles X
 screenshots
 
-Xenoblade X is a game with one really good thing about it: the open world level design. It asks, "What if getting places in the world was *actually hard*? Even modern Zelda doesn't make the world this big at the same time that so much is held back until you get better tools. But you can get *some* interesting places if you work hard early.
-Everything else is mediocre to poor (though sometimes hilariously so).
+Xenoblade X is an open world single-player MMO that asks, "What if getting places in the world was *actually hard*?" The difficulty is less modern Zelda&mdash;soft level gating&mdash;and more Metroid&mdash;hard ability gates&mdash;although it does use enemy level as a soft gate sometimes too. Sequence breaks are more obvious and encouraged than Metroid, though, probably because the enemy level gating means you can't break the game too badly. The rest of the game feels uninspired, like the sequel it is. There are a lot of systems, but they either don't work or aren't interesting. On the other hand, the plot and writing are pure trash-tier JRPG, which is good for a laugh if you like jank in that particular way.
 
+I'm a sucker for all those things, so I quite liked it, but I can see how most people would not.
 
 
 ## Go Home Dinosaurs
-Pretty standard and boring tower defence. 
+Go Home Dinosaurs is a pretty standard and boring tower defence game. I'm not sure how much it post-dates the original craze, but I think it must be at least 5 years. It even arrived on Steam after the iOS app store gold rush, although maybe it started on iOS previously. Musing about its history is the most interesting thing to say about it, unfortunately.
