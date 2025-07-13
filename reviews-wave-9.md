@@ -1,9 +1,9 @@
 # Reviews Wave 9
 I certainly played a lot of long, janky games in this wave. Can't recommend any of them for a general audience, though.
-Recommended: Half-Life 2, especially in VR. Streets of Rogue. Might and Magic **7** (not 8) if you want to put some work into getting a game running. Fallout New Vegas if you want to put **a lot** of work into getting a game to work. Maybe Bethesda will remake Fallout 3 so modders can make a modern New Vegas.
+I do recommend Half-Life 2, especially in VR, as well as Streets of Rogue. Might and Magic **7** (not 8) if you want to put some work into getting a game running. Fallout New Vegas if you want to put **a lot** of work into getting a game to work. And, oops, I've started recommending long, janky games, so I'll stop.
 
 ## Half-Life 2 VR
-Half-Life 2 is amazing in VR. I've played a decent number of VR (con)versions at this point, and they re-weight and alter the emphasis of the game -- locations become awe-inspiring, or too-obviously sparse. Mechanics become harder, or nearly trivial. Half-Life 2 changes the least of any I've played. The main difference is that aiming feels harder and more exciting, but the aiming in VR has such a higher precision that the difficulty is actually about the same&mdash;although manhacks are *much* easier and more satisfying to take out with swings of the crowbar.
+Half-Life 2 is amazing in VR. I've played a decent number of VR mods at this point, and they re-weight and alter the emphasis of the game&mdash;locations become awe-inspiring, or too-obviously sparse. Mechanics become harder, or nearly trivial. Half-Life 2 changes the least of any I've played. The main difference is that aiming feels harder and more exciting, but the aiming in VR has such a higher precision that the difficulty is actually about the same&mdash;although manhacks are *much* easier and more satisfying to take out with swings of the crowbar.
 
 Tip: All weapons can be held with two hands to improve their stability, and it's essential with rapid-fire. I didn't figure that one out till Episode 1, and it made me want to replay the whole thing from scratch. Again.
 
@@ -20,9 +20,9 @@ Might and Magic 6/7/8 were right in the middle of skueuomorphic user interfaces,
 
 Risen asks the question, "what if we made back-and-forth talking quests the main part of the RPG, and also *really hard*?" (in the first third at least). Turns out it's super interesting! Alliances are meaningful, resources have to be scraped together, actions have a real cost. It makes you properly resent a rude NPC who refuses to help you when they're keeping you from the rest of the game.
 
-Meanwhile, the combat is so bad that I couldn't finish the game -- it doesn't feel significantly changed from Gothic 1, which it is a sequel of in all but name. There's not a lot to show for 8 years except for improved graphics, though.
+Meanwhile, the combat is so bad that I couldn't finish the game&mdash;it doesn't feel significantly changed from Gothic 1, which it is a sequel of in all but name. There's not a lot to show for 8 years except for improved graphics, though.
 
-Disclaimer: Gothic and Risen are Eurojank, so they come with *significant* amounts of sexism (and blind-spot racism -- the whole game is whites-only as far as I recall).
+Disclaimer: Gothic and Risen are Eurojank, so they come with *significant* amounts of sexism (and blind-spot racism&mdash;the whole game is whites-only as far as I recall).
 
 ## Two Worlds II
 ![A man wearing a silly robe and wizard hat poses on a bridge over a wide river. The shores on either side are dusty with a savannah in the distance.](images/two-worlds-two-1.jpg)
@@ -59,29 +59,29 @@ I really liked the physicality of control, where you could drag windows and leve
 ## Republique
 Republique spends *so* much budget on gameplay that's just a little boring. But they were designing for two new platforms in a row: first mobile, then VR.
 
-I played the VR version, and I admit, it's an innovative attempt within the constraints of early VR: basically a transposition of 90s adventure game controls to a sneaking game. Jumping between cameras avoids movement--even most turning--and the frequent cutscenes feel like a stage play with you on the front row. The biggest failure is that sneaking a character around with point-n-click is hard to follow with the hard transitions between areas. Early Metal Gears fail in the same way, which is why later games in the series are easier and more interesting. And another reason why it's so weird to hear David Hayter in Republique as well.
+I played the VR version, and I admit, it's an innovative attempt within the constraints of early VR: basically a transposition of 90s adventure game controls to a sneaking game. Jumping between cameras avoids movement--even most turning--and the frequent cutscenes feel like a stage play with you on the front row. The biggest failure is that sneaking a character around with point-n-click is hard to follow, what with the hard transitions between screens. Early Metal Gears fail in the same way, which is why later games in the series are easier to read and more interesting. And another reason why it's so weird to hear David Hayter in Republique as well. It feels like we reset to 1998 with the introduction of a new platform.
 
 ## SUPERHOT VR
 SUPERHOT VR is an amazing 75-second loop, a twisting, agile in-place VR shooter that still manages to be thinky. It's good enough that the first time through I wanted to see it all. This time I had fun for 75 seconds.
 
 ## Streets of Rogue
-I know Streets of Rogue claims to be an "immersive sim-lite", but that's only because "immersive sim" and 2000s-era "sandbox games" are sibling genres -- it's actually more of the latter. Combining that with rogue-like is excellent, though, because it frees *my* mind enough to actually enjoy messing around with the simulation, something I don't like doing in those old sandbox games with a story and a defined character. Its main claim to "immersive sim" is that most missions involve infiltrating/exploding a building and stealing/exploding something.
+I know Streets of Rogue claims to be an "immersive sim-lite", but that's only because "immersive sim" and 2000s-era-GTA "sandbox games" are sibling genres&mdash;it's actually more of the latter. Combining that with rogue-like is excellent, though, because it frees *my* mind enough to actually enjoy messing around with the simulation, something I don't like doing in those old sandbox games with a story and a defined character. Its main claim to "immersive sim" is that most missions involve infiltrating/exploding a building and stealing/exploding something.
 
 Anyway you can play a zombie, gorilla or scientist, all of which have their own in-game feuds, so I'd recommend it.
 
 ## Inmost
-Inmost is a fairly by-the-numbers descendant of Limbo (or Oddworld, even futher back). But it has beautiful pixel animations, snappy controls and a passable story&mdash;enough to make up for the "die here until you guess what the design was thinking" puzzles.
+Inmost is a fairly by-the-numbers descendant of Limbo (or Oddworld, even futher back). But it has beautiful pixel animations, snappy controls and a passable story&mdash;enough to make up for the "die here until you guess what the designer was thinking" puzzles.
 
 ## Lucifer Among Us
-Lucifer Among Us feels like a Western take on Phoenix Wright: more emphasis on twiddling complex UI to infer clues, less bombastic personality. The story was nice despite being predictable. But! Being predictable is a side effect of making a *lot* more sense than the Phoenix Wright cases that I can remember.
+Lucifer Among Us feels like a Western take on Phoenix Wright: more emphasis on twiddling complex UI to infer clues, less bombastic personality. The story was nice despite being predictable; but more predictability in the cases was welcome. I thought nearly all the cases I had to make made sense, unlike in Phoenix Wright. It's also nice and short.
 
 ## Xenoblade Chronicles X
-screenshots
+![A grassy meadow stretches into the distance, with a beaten path crossing it. Dramatic land bridges frame the horizon.](images/xenoblade-x.jpg)
 
-Xenoblade X is an open world single-player MMO that asks, "What if getting places in the world was *actually hard*?" The difficulty is less modern Zelda&mdash;soft level gating&mdash;and more Metroid&mdash;hard ability gates&mdash;although it does use enemy level as a soft gate sometimes too. Sequence breaks are more obvious and encouraged than Metroid, though, probably because the enemy level gating means you can't break the game too badly. The rest of the game feels uninspired, like the sequel it is. There are a lot of systems, but they either don't work or aren't interesting. On the other hand, the plot and writing are pure trash-tier JRPG, which is good for a laugh if you like jank in that particular way.
+Xenoblade X is an open world single-player MMO that asks, "What if getting places in the world was *actually hard*?" The difficulty is less modern Zelda&mdash;soft level gating&mdash;and more Metroid&mdash;hard ability gates&mdash;although it does use enemy level as a soft gate a fair amount. Sequence breaks are more obvious and encouraged than Metroid, though, probably because the enemy level gating means you can't break the game too badly. The rest of the game feels uninspired, like the sequel it is. There are a lot of systems, but they either don't work or aren't interesting. On the other hand, the plot and writing are pure trash-tier JRPG, which is good for a laugh if you like jank in that particular way.
 
 I'm a sucker for all those things, so I quite liked it, but I can see how most people would not.
 
 
 ## Go Home Dinosaurs
-Go Home Dinosaurs is a pretty standard and boring tower defence game. I'm not sure how much it post-dates the original craze, but I think it must be at least 5 years. It even arrived on Steam after the iOS app store gold rush, although maybe it started on iOS previously. Musing about its history is the most interesting thing to say about it, unfortunately.
+Go Home Dinosaurs is a pretty standard and boring tower defence game. It missed the original craze by 6 years. It arrived on PC in 2013 at the beginning of the indie explosion there, but after the iOS gold rush. Musing about its history is the most interesting thing to say about it, unfortunately.
