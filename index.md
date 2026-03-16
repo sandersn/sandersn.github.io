@@ -3,9 +3,16 @@
 My email address is my first name, `nathan`, at this domain name.
 
 [Curriculum Vitae](cv.md) &mdash; extremely long, complete and chatty.
-[Drawings](drawings.html)
 
-Social media: <a rel="me" href="https://fosstodon.org/@shivelysanders">Mastodon</a>
+# Projects
+
+- [Typescript Early Design Notes](https://github.com/sandersn/typescript-history)
+- [mini-typescript](https://github.com/sandersn/mini-typescript)
+- [Drawings](drawings.html)
+
+## How To
+
+- [How to Minify a Typescript Repro](minify-typescript-repro.html)
 
 ## Opinions
 
@@ -16,15 +23,6 @@ Some quick opinions, mostly transcribed from discord or mastodon. Not fact-check
 - [Separate Type and Value Languages](separate-type-and-value-languages.html)
 - [Design Principles for new JSDoc tags in modern Typescript](typescript-modern-jsdoc.html)
 - [Should I write JS with JSDoc types](recommendations-on-js-with-jsdoc.html)
-
-## How To
-
-- [How to Minify a Typescript Repro](minify-typescript-repro.html)
-
-# Projects
-
-- [Typescript Early Design Notes](https://github.com/sandersn/typescript-history)
-- [mini-typescript](https://github.com/sandersn/mini-typescript)
 
 # Reviews
 
@@ -47,3 +45,5 @@ Some quick opinions, mostly transcribed from discord or mastodon. Not fact-check
 - [HP Reverb G2 VR Headset](reviews-hp-reverb-vr.html)
 - [Bigscreen Beyond VR Headset](reviews-bigscreen-beyond.html)
 - [GitClear's Whitepaper on Copilot Code Quality](gitclear-copilot-code-quality.html)
+
+Social media: <a rel="me" href="https://fosstodon.org/@shivelysanders">Mastodon</a>
