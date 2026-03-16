@@ -1,8 +1,11 @@
 <title>Nathan Shively-Sanders</title>
 
-Social media: <a rel="me" href="https://fosstodon.org/@shivelysanders">Mastodon</a>
+My email address is my first name, `nathan`, at this domain name.
 
+[Curriculum Vitae](cv.md) &mdash; extremely long, complete and chatty.
 [Drawings](drawings.html)
+
+Social media: <a rel="me" href="https://fosstodon.org/@shivelysanders">Mastodon</a>
 
 ## Opinions
 
@@ -17,6 +20,11 @@ Some quick opinions, mostly transcribed from discord or mastodon. Not fact-check
 ## How To
 
 - [How to Minify a Typescript Repro](minify-typescript-repro.html)
+
+# Projects
+
+- [Typescript Early Design Notes](https://github.com/sandersn/typescript-history)
+- [mini-typescript](https://github.com/sandersn/mini-typescript)
 
 # Reviews
 
